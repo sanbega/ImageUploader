@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href=" css/index.css">
+</head>
+
+<body>
+    <main>
+        <section class="box">
+            <h1 class="prueba">Upload your image</h1>
+
+            <h5 class="prueba1">File should be Jpeg, Png,...</h5>
+
+            <section class="droparea">
+                <p class=" prueba2">Drag & Drop your image here </p>
+
+            </section>
+            <h6 class="prueba3">Or</h6>
+            <input type="file" name="myFile" id="myFile" onchange="send()"><br />
+            <button class="button" onclick="openFiles()" id="open">File</button>
+            <p class="text">Uploading...</p>
+            <progress class="barra" id="barra" value="0" max="100" style="width: 100%"></progress>
+        </section>
+    </main>
+    <footer>
+        <p class="piede">
+            created by <strong>Sanbega</strong> - devChallenges.io
+        </p>
+    </footer>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const send = function () {
+        const myfile = document.getElementById("myFile").files
+        const progress = document.getElementsByClassName("barra")[0]
+        const formData = new FormData()
+
+        for (let i = 0; i < myfile.length; i++) {
+            formData.append('myFile', myfile[i])
+        }
+        const contentType = {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        }
+        progress.style.display = "block"
+        const button = document.getElementById("open")
+        button.style.display = "none"
+        axios.post('/upload', formData, contentType)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            }).finally(() => {
+                button.style.display = "block"
+                progress.style.display = "none"
+            })
+    }
+</script>
+<script>
+    function openFiles() {
+        const inputFile = document.getElementById("myFile")
+        if (!inputFile) {
+            return
+        }
+        inputFile.click()
+    }
+</script>
+
+
+</html>
