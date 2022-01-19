@@ -16,14 +16,13 @@
 
             <h5 class="prueba1">File should be Jpeg, Png,...</h5>
 
-            <section class="droparea">
-                <p class=" prueba2">Drag & Drop your image here </p>
-
+            <section class="droparea" id="droparea">
+                <p class=" prueba2" id="prueba2">Drag & Drop your image here </p>
             </section>
             <h6 class="prueba3">Or</h6>
             <input type="file" name="myFile" id="myFile" onchange="send()"><br />
-            <button class="button" onclick="openFiles()" id="open">File</button>
-            <p class="text">Uploading...</p>
+            <button class="button" onclick="openFiles()" id="open">Choose a file</button>
+            <p class="text" id="text">Uploading...</p>
             <progress class="barra" id="barra" value="0" max="100" style="width: 100%"></progress>
         </section>
     </main>
@@ -38,6 +37,7 @@
     const send = function () {
         const myfile = document.getElementById("myFile").files
         const progress = document.getElementsByClassName("barra")[0]
+        const droparea = document.getElementById("droparea")
         const formData = new FormData()
 
         for (let i = 0; i < myfile.length; i++) {
@@ -46,11 +46,19 @@
         const contentType = {
             headers: {
                 "content-type": "multipart/form-data"
+            },
+            onUploadProgress: (event) => {
+                const percent = Math.round((event.loaded * 100) / event.total)
+                progress.setAttribute("value", percent.toString())
             }
         }
         progress.style.display = "block"
         const button = document.getElementById("open")
+        droparea.style.display = "none"
+        prueba2.style.display = "none"
+        prueba2.style.display = "block"
         button.style.display = "none"
+        text.style.display = "block"
         axios.post('/upload', formData, contentType)
             .then(function (response) {
                 console.log(response);
@@ -60,6 +68,11 @@
             }).finally(() => {
                 button.style.display = "block"
                 progress.style.display = "none"
+                progress.setAttribute("value", "0")
+                text.style.display = "none"
+                droparea.style.display = "block"
+                prueba2.style.display = "block"
+
             })
     }
 </script>

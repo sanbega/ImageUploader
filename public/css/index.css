@@ -79,7 +79,12 @@ main {
 #barra {
   display: none;
 }
-
+#text {
+  display: none;
+}
+#droparea {
+  text-align: center;
+}
 .box {
   width: 402px;
   background: #ffffff;
