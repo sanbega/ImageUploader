@@ -1,6 +1,7 @@
 const multer = require("multer");
 const aws = require("aws-sdk");
 const multerS3 = require("multer-s3");
+const path = require("path");
 require("dotenv").config();
 
 const s3 = new aws.S3({
@@ -16,8 +17,10 @@ const upload = multer({
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
-    key: function (req, file, cb) {
-      cb(null, Date.now().toString());
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      console.log(file);
+      cb(null, file.fieldname + "-" + uniqueSuffix);
     },
   }),
 });

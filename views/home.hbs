@@ -15,6 +15,7 @@
             <h1 class="prueba">Upload your image</h1>
 
             <h5 class="prueba1">File should be Jpeg, Png,...</h5>
+            <img class="img hidden" alt="">
 
             <section class="droparea" id="droparea">
                 <p class=" prueba2" id="prueba2">Drag & Drop your image here </p>
@@ -61,17 +62,20 @@
         text.style.display = "block"
         axios.post('/upload', formData, contentType)
             .then(function (response) {
-                console.log(response);
+                progress.style.display = "none"
+                text.style.display = "none"
+                const img = document.getElementsByTagName("img")[0]
+                img.setAttribute("src", response.data.url)
+                img.classList.remove("hidden")
             })
             .catch(function (error) {
-                console.log(error);
-            }).finally(() => {
                 button.style.display = "block"
                 progress.style.display = "none"
                 progress.setAttribute("value", "0")
                 text.style.display = "none"
                 droparea.style.display = "block"
                 prueba2.style.display = "block"
+            }).finally(() => {
 
             })
     }
@@ -85,6 +89,5 @@
         inputFile.click()
     }
 </script>
-
 
 </html>
