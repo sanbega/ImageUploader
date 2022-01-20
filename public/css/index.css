@@ -31,6 +31,19 @@ main {
   letter-spacing: -0.035em;
   color: #4f4f4f;
 }
+.link {
+  width: 400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  overflow: hidden;
+  background: #f6f8fb;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 0 0.5rem;
+}
 
 .prueba1 {
   font-family: Poppins;
@@ -91,6 +104,26 @@ main {
 }
 #droparea {
   text-align: center;
+}
+#link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 1rem;
+}
+.buttton {
+  width: 90px;
+  height: 38px;
+  left: 813px;
+  top: 698.03px;
+  background: #2f80ed;
+  border-radius: 8px;
+  font-family: Noto Sans;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+  color: #ffffff;
 }
 .box {
   width: 402px;
