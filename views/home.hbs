@@ -23,10 +23,10 @@
             <h6 class="prueba3">Or</h6>
             <input type="file" name="myFile" id="myFile" onchange="send()"><br />
             <button class="button" onclick="openFiles()" id="open">Choose a file</button>
-            <div class="link" id="link">
-                <button class="buttton">Copy Link</button>
+            <div class="hider" id="hider">
+                <button class="hident" id="hident">Copy Link</button>
             </div>
-            <p class="text" id="text">Uploading...</p>
+            <p class=" text" id="text">Uploading...</p>
             <progress class="barra" id="barra" value="0" max="100" style="width: 100%"></progress>
         </section>
     </main>
@@ -43,6 +43,8 @@
         const progress = document.getElementsByClassName("barra")[0]
         const droparea = document.getElementById("droparea")
         const link = document.getElementsByClassName("link")
+        const hider = document.getElementsByClassName("hider")
+        const hident = document.getElementsByClassName("hident")
         const formData = new FormData()
 
         for (let i = 0; i < myfile.length; i++) {
@@ -59,6 +61,10 @@
         }
         progress.style.display = "block"
         const button = document.getElementById("open")
+        const hide = document.getElementById("hider")
+        const hidet = document.getElementById("hident")
+        hider.style.display = "none"
+        hident.style.display = "none"
         droparea.style.display = "none"
         prueba2.style.display = "none"
         button.style.display = "none"
@@ -66,6 +72,8 @@
         axios.post('/upload', formData, contentType)
             .then(function (response) {
                 progress.style.display = "none"
+                hider.style.display = "block"
+                hident.style.display = "block"
                 text.style.display = "none"
                 const img = document.getElementsByTagName("img")[0]
                 img.setAttribute("src", response.data.url)
@@ -79,9 +87,14 @@
                 progress.setAttribute("value", "0")
                 text.style.display = "none"
                 droparea.style.display = "block"
+                hident.style.display = "block"
+                hider.style.display = "block"
                 prueba2.style.display = "block"
             }).finally(() => {
-
+                hident.style.display = "block"
+                hider.style.display = "block"
+                droparea.style.display = "none"
+                button.style.display = "none"
             })
     }
 </script>

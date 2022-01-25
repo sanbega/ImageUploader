@@ -105,11 +105,16 @@ main {
 #droparea {
   text-align: center;
 }
-#link {
+#hider {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-right: 1rem;
+}
+.hident {
+  display: none;
+}
+.hider {
 }
 .buttton {
   width: 90px;
